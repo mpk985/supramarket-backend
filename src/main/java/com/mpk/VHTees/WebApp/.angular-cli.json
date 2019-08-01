@@ -1,0 +1,33 @@
+{
+   "project": {
+       "name": "VHTees"
+   },
+   "apps": [
+       {
+           "root": "src",
+           "outDir": "dist",
+           "index": "index.html",
+           "main": "main.ts",
+            "polyfills": "polyfills.ts",
+            "tsconfig": "tsconfig.app.json",
+           "styles": [
+               "styles.css"
+           ],
+            "test": "test.ts",
+            "testTsconfig": "tsconfig.spec.json",
+            "environmentSource": "environments/environment.ts",
+           "dev": "environments/environment.dev.ts",
+           "prod": "environments/environment.prod.ts"
+       }
+   ],
+    "test": {
+        "karma": {
+            "config": "./karma.conf.js"
+        }
+    },
+    "e2e": {
+        "protractor": {
+            "config": "./protractor.conf.js"
+        }
+    }
+}
