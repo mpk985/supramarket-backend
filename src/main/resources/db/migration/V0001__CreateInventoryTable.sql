@@ -1,9 +1,13 @@
-create table clothing_inventory (
+create table car_inventory (
 inventory_id bigserial primary key,
-title varchar,
-size varchar,
+year varchar,
+make varchar,
+model varchar,
+trim varchar,
+transmission varchar,
 color varchar,
-price numeric(4,2) not null,
-inventory_remaining smallint not null DEFAULT 0,
+price varchar,
+vin varchar,
+car_sold varchar,
 product_img varchar
 )

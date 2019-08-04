@@ -1,3 +1,3 @@
-insert into clothing_inventory (title, size, color, price, inventory_remaining, product_img) values 
-('Arctic Bandito', 'Adult', 'Larkspur', 20.00, 12, 'src/main/resources/db/migration/blue.jpg'),
-('Arctic Bandita', 'Adult', 'Carnation', 20.00, 8, 'src/main/resources/db/migration/pink.jpg');
+insert into car_inventory (year, make, model, trim, transmission, color, price, vin, car_sold, product_img)values 
+('1993', 'Toyota', 'Supra', 'SZ', 'AT', 'Silver', '$22,000', '6U900JZA800005040', 'true', 'src/main/resources/media/supra/5040/'),
+('1997', 'Toyota', 'Supra', 'GZ', 'AT', 'Deep Jewel Green', '$75,000', '6U900JZA990009810', 'false', 'src/main/resources/media/supra/9810/');
