@@ -25,20 +25,6 @@ public class ViewItem {
 	private String carSold;
 
 	private String productImg;
-//
-//	public ViewItem(Long inventoryId, String year, String make, String model, String trim, String transmission, String color, String price, String vin, String carSold, String productImg) {
-//		this.inventoryId = inventoryId;
-//		this.year = year;
-//		this.make = make;
-//		this.model = model;
-//		this.trim = trim;
-//		this.transmission = transmission;
-//		this.color = color;
-//		this.price = price;
-//		this.vin = vin;
-//		this.carSold = carSold;
-//		this.productImg = productImg;
-//	}
 
 	public Long getInventoryId() {
 		return inventoryId;

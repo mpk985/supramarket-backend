@@ -39,14 +39,6 @@ public class ItemManager implements IItemManager {
         return itemConverter.domainToView(item);
     }
 
-//    @Override
-//    public ViewItem getItemImgById(Long inventoryId) {
-//        Item item = itemAccessor.findImgByInventoryId(inventoryId);
-//        if (item == null) {
-//            throw new EntityNotFoundException("Unable to retrieve inventory item: " + inventoryId);
-//        }
-//        return itemConverter.domainToView(item);
-//    }
 
     @Override
     public ViewItem getItemByVin(String vin) {
@@ -72,6 +64,16 @@ public class ItemManager implements IItemManager {
 //        return itemAccessor.findAllByInventoryRemaining(inventoryRemaining).stream()
 //                .map(itemConverter::domainToView)
 //                .collect(Collectors.toList());
+//    }
+
+
+//    @Override
+//    public ViewItem getItemImgById(Long inventoryId) {
+//        Item item = itemAccessor.findImgByInventoryId(inventoryId);
+//        if (item == null) {
+//            throw new EntityNotFoundException("Unable to retrieve inventory item: " + inventoryId);
+//        }
+//        return itemConverter.domainToView(item);
 //    }
 
     @Override

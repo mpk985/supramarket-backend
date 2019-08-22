@@ -34,22 +34,15 @@ public class ItemControllerV1 {
                     itemManager.getItemsById(inventoryId), HttpStatus.OK);
         }
 
-
-//    @RequestMapping(method = RequestMethod.GET)
-//    ResponseEntity<List<ViewItem>> getAllItems() {
-//        return new ResponseEntity<>(itemManager.getAllItems(), HttpStatus.OK);
-//    }
-
-
-     @RequestMapping(value = "/", method = RequestMethod.POST)
-     ResponseEntity<List<ViewItem>> getItemsByCarSold(@RequestParam(value="carSold") String carSold) {
+     @RequestMapping(value = "/", method = RequestMethod.GET)
+     ResponseEntity<List<ViewItem>> getItemsByCarSold(@RequestParam(name="sold", defaultValue = "false") String carSold) {
          return new ResponseEntity<>(itemManager.getItemsByCarSold(carSold), HttpStatus.OK);
      }
 
-    // @RequestMapping(value = "/{title}", method = RequestMethod.GET)
-    // ResponseEntity<List<ViewItem>> getItemByTitle(@PathVariable String title) {
-    //     return new ResponseEntity<>(itemManager.getItemsByTitle(title), HttpStatus.OK);
-    // }
+     @RequestMapping(value = "/vin/{vin}", method = RequestMethod.GET)
+     ResponseEntity <ViewItem> getItemByVin(@PathVariable String vin) {
+         return new ResponseEntity<>(itemManager.getItemByVin(vin), HttpStatus.OK);
+     }
 
     // @RequestMapping(value = "/{size}", method = RequestMethod.GET)
     // ResponseEntity<List<ViewItem>> getItemBySize(@PathVariable String size) {
