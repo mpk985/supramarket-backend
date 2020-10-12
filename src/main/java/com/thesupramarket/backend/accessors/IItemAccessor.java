@@ -10,10 +10,10 @@ public interface IItemAccessor extends JpaRepository<Item, Long> {
 	Item findByInventoryId(Long inventoryId);
 
 	/*	List all cars whether they were sold or not	*/
-	List<Item> findAllByCarSold(String carSold);
-
-	/*	Find a car by it's VIN#	*/
-	Item findByVin(String vin);
+//	List<Item> findAllByCarSold(String carSold);
+//
+//	/*	Find a car by it's VIN#	*/
+//	Item findByVin(String vin);
 
 //
 //	Item findImgByInventoryId(Long inventoryId);

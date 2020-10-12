@@ -1,9 +1,5 @@
 package com.thesupramarket.backend.domains;
 
-// public class Item {
-
-//}
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +9,7 @@ import javax.persistence.Table;
 import java.util.Objects;
 
 @Entity
-@Table(name = "car_inventory")
+@Table(name = "art_inventory")
 public class Item {
 
 	@Id
@@ -24,29 +20,17 @@ public class Item {
 	@Column(name = "year")
 	private String year;
 
-	@Column(name = "make")
-	private String make;
+	@Column(name = "title")
+	private String title;
 
-    @Column(name = "model")
-    private String model;
+    @Column(name = "description")
+    private String description;
 
-    @Column(name = "trim")
-    private String trim;
+    @Column(name = "price")
+    private Double price;
 
-    @Column(name = "transmission")
-    private String transmission;
-
-	@Column(name = "color")
-	private String color;
-
-	@Column(name = "price")
-	private String price;
-
-    @Column(name = "vin")
-    private String vin;
-
-	@Column(name = "car_sold")
-	private String carSold;
+    @Column(name = "sold")
+    private Integer sold;
 
 	@Column(name = "product_img")
 	private String productImg;
@@ -67,68 +51,36 @@ public class Item {
 		this.year = year;
 	}
 
-	public String getMake() {
-		return make;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setMake(String make) {
-		this.make = make;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getModel() {
-		return model;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setModel(String model) {
-		this.model = model;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public String getTrim() {
-		return trim;
-	}
-
-	public void setTrim(String trim) {
-		this.trim = trim;
-	}
-
-	public String getTransmission() {
-		return transmission;
-	}
-
-	public void setTransmission(String transmission) {
-		this.transmission = transmission;
-	}
-
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-	}
-
-	public String getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 
-	public String getVin() {
-		return vin;
+	public Integer getSold() {
+		return sold;
 	}
 
-	public String getCarSold() {
-		return carSold;
-	}
-
-	public void setCarSold(String carSold) {
-		this.carSold = carSold;
-	}
-
-	public void setVin(String vin) {
-		this.vin = vin;
+	public void setSold(Integer sold) {
+		this.sold = sold;
 	}
 
 	public String getProductImg() {
@@ -146,19 +98,15 @@ public class Item {
 		Item item = (Item) o;
 		return getInventoryId().equals(item.getInventoryId()) &&
 				Objects.equals(getYear(), item.getYear()) &&
-				Objects.equals(getMake(), item.getMake()) &&
-				Objects.equals(getModel(), item.getModel()) &&
-				Objects.equals(getTrim(), item.getTrim()) &&
-				Objects.equals(getTransmission(), item.getTransmission()) &&
-				Objects.equals(getColor(), item.getColor()) &&
+				Objects.equals(getTitle(), item.getTitle()) &&
+				Objects.equals(getDescription(), item.getDescription()) &&
 				Objects.equals(getPrice(), item.getPrice()) &&
-				Objects.equals(getVin(), item.getVin()) &&
-				Objects.equals(getCarSold(), item.getCarSold()) &&
+				Objects.equals(getSold(), item.getSold()) &&
 				Objects.equals(getProductImg(), item.getProductImg());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getInventoryId(), getYear(), getMake(), getModel(), getTrim(), getTransmission(), getColor(), getPrice(), getVin(), getCarSold(), getProductImg());
+		return Objects.hash(getInventoryId(), getYear(), getTitle(), getDescription(), getPrice(), getSold(), getProductImg());
 	}
 }

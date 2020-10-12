@@ -8,21 +8,13 @@ public class ViewItem {
     
     private String year;
     
-    private String make;
+    private String title;
     
-    private String model;
-    
-    private String trim;
-    
-    private String transmission;
+    private String description;
 
-	private String color;
+	private Double price;
 
-	private String price;
-
-	private String vin;
-
-	private String carSold;
+	private Integer sold;
 
 	private String productImg;
 
@@ -42,60 +34,36 @@ public class ViewItem {
 		this.year = year;
 	}
 
-	public String getMake() {
-		return make;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setMake(String make) {
-		this.make = make;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getModel() {
-		return model;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setModel(String model) {
-		this.model = model;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public String getTrim() {
-		return trim;
+	public Double getPrice() {
+		return price;
 	}
 
-	public void setTrim(String trim) {
-		this.trim = trim;
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 
-	public String getTransmission() {
-		return transmission;
+	public Integer getSold() {
+		return sold;
 	}
 
-	public void setTransmission(String transmission) {
-		this.transmission = transmission;
-	}
-
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-	}
-
-	public String getVin() {
-		return vin;
-	}
-
-	public void setVin(String vin) {
-		this.vin = vin;
-	}
-
-	public String getCarSold() {
-		return carSold;
-	}
-
-	public void setCarSold(String carSold) {
-		this.carSold = carSold;
+	public void setSold(Integer sold) {
+		this.sold = sold;
 	}
 
 	public String getProductImg() {
@@ -106,14 +74,6 @@ public class ViewItem {
 		this.productImg = productImg;
 	}
 
-	public String getPrice(){
-		return price;
-	}
-
-	public void setPrice(String price){
-		this.price = price;
-	}
-
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -121,19 +81,28 @@ public class ViewItem {
 		ViewItem viewItem = (ViewItem) o;
 		return getInventoryId().equals(viewItem.getInventoryId()) &&
 				Objects.equals(getYear(), viewItem.getYear()) &&
-				Objects.equals(getMake(), viewItem.getMake()) &&
-				Objects.equals(getModel(), viewItem.getModel()) &&
-				Objects.equals(getTrim(), viewItem.getTrim()) &&
-				Objects.equals(getTransmission(), viewItem.getTransmission()) &&
-				Objects.equals(getColor(), viewItem.getColor()) &&
+				Objects.equals(getTitle(), viewItem.getTitle()) &&
+				Objects.equals(getDescription(), viewItem.getDescription()) &&
 				Objects.equals(getPrice(), viewItem.getPrice()) &&
-				Objects.equals(getVin(), viewItem.getVin()) &&
-				Objects.equals(getCarSold(), viewItem.getCarSold()) &&
+				Objects.equals(getSold(), viewItem.getSold()) &&
 				Objects.equals(getProductImg(), viewItem.getProductImg());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getInventoryId(), getYear(), getMake(), getModel(), getTrim(), getTransmission(), getColor(), getPrice(), getVin(), getCarSold(), getProductImg());
+		return Objects.hash(getInventoryId(), getYear(), getTitle(), getDescription(), getPrice(), getSold(), getProductImg());
+	}
+
+	@Override
+	public String toString() {
+		return "ViewItem{" +
+				"inventoryId=" + inventoryId +
+				", year='" + year + '\'' +
+				", title='" + title + '\'' +
+				", description='" + description + '\'' +
+				", price=" + price +
+				", sold=" + sold +
+				", productImg='" + productImg + '\'' +
+				'}';
 	}
 }//EOF

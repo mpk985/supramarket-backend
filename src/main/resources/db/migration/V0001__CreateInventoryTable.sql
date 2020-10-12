@@ -1,13 +1,9 @@
-create table car_inventory (
+create table art_inventory (
 inventory_id bigserial primary key,
 year varchar,
-make varchar,
-model varchar,
-trim varchar,
-transmission varchar,
-color varchar,
-price varchar,
-vin varchar,
-car_sold varchar,
+title varchar,
+description varchar,
+price NUMBER(8,2),
+sold SMALLINT,
 product_img varchar
 )

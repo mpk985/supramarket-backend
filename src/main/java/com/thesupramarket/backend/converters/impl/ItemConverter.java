@@ -16,13 +16,10 @@ public class ItemConverter implements IItemConverter {
         Item domain = new Item();
         domain.setInventoryId(item.getInventoryId());
         domain.setYear(item.getYear());
-        domain.setMake(item.getMake());
-        domain.setModel(item.getModel());
-        domain.setTrim(item.getTrim());
-        domain.setColor(item.getColor());
+        domain.setTitle(item.getTitle());
+        domain.setDescription(item.getDescription());
         domain.setPrice(item.getPrice());
-        domain.setVin(item.getVin());
-        domain.setCarSold(item.getCarSold());
+        domain.setSold(item.getSold());
         domain.setProductImg(item.getProductImg());
 
         return domain;
@@ -33,13 +30,10 @@ public class ItemConverter implements IItemConverter {
         ViewItem view = new ViewItem();
         view.setInventoryId(item.getInventoryId());
         view.setYear(item.getYear());
-        view.setMake(item.getMake());
-        view.setModel(item.getModel());
-        view.setTrim(item.getTrim());
-        view.setColor(item.getColor());
+        view.setDescription(item.getDescription());
+        view.setTitle(item.getTitle());
         view.setPrice(item.getPrice());
-        view.setVin(item.getVin());
-        view.setCarSold(item.getCarSold());
+        view.setSold(item.getSold());
         view.setProductImg(item.getProductImg());
 
         return view;

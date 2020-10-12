@@ -40,17 +40,17 @@ public class ItemManager implements IItemManager {
     }
 
 
-    @Override
-    public ViewItem getItemByVin(String vin) {
-        return itemConverter.domainToView(itemAccessor.findByVin(vin));
-    }
-
-    @Override
-    public List<ViewItem> getItemsByCarSold(String carSold) {
-        return itemAccessor.findAllByCarSold(carSold).stream()
-                .map(itemConverter::domainToView)
-                .collect(Collectors.toList());
-    }
+//    @Override
+//    public ViewItem getItemByVin(String vin) {
+//        return itemConverter.domainToView(itemAccessor.findByVin(vin));
+//    }
+//
+//    @Override
+//    public List<ViewItem> getItemsByCarSold(String carSold) {
+//        return itemAccessor.findAllByCarSold(carSold).stream()
+//                .map(itemConverter::domainToView)
+//                .collect(Collectors.toList());
+//    }
 
 //    @Override
 //    public List<ViewItem> getItemsByPrice(double price) {
@@ -76,33 +76,33 @@ public class ItemManager implements IItemManager {
 //        return itemConverter.domainToView(item);
 //    }
 
-    @Override
-    public ViewItem createItem(ViewItem item) {
-        return itemConverter.domainToView(
-                itemAccessor.save(
-                        itemConverter.viewToDomain(item)));
-    }
-
-    @Override
-    public ViewItem updateItem(Long inventoryId, ViewItem item) {
-        Item currentItem = itemAccessor.findOne(inventoryId);
-        if (currentItem == null || item.getInventoryId() != inventoryId) {
-            return null;
-        }
-        return itemConverter.domainToView(
-                itemAccessor.save(
-                        itemConverter.viewToDomain(item)));
-    }
-
-    @Override
-    public ViewItem deleteItem(Long inventoryId) {
-        Item item = itemAccessor.findOne(inventoryId);
-        if (item == null) {
-            return null;
-        }
-        itemAccessor.delete(inventoryId);
-        return itemConverter.domainToView(item);
-    }
+//    @Override
+//    public ViewItem createItem(ViewItem item) {
+//        return itemConverter.domainToView(
+//                itemAccessor.save(
+//                        itemConverter.viewToDomain(item)));
+//    }
+//
+//    @Override
+//    public ViewItem updateItem(Long inventoryId, ViewItem item) {
+//        Item currentItem = itemAccessor.findOne(inventoryId);
+//        if (currentItem == null || item.getInventoryId() != inventoryId) {
+//            return null;
+//        }
+//        return itemConverter.domainToView(
+//                itemAccessor.save(
+//                        itemConverter.viewToDomain(item)));
+//    }
+//
+//    @Override
+//    public ViewItem deleteItem(Long inventoryId) {
+//        Item item = itemAccessor.findOne(inventoryId);
+//        if (item == null) {
+//            return null;
+//        }
+//        itemAccessor.delete(inventoryId);
+//        return itemConverter.domainToView(item);
+//    }
 
    
 

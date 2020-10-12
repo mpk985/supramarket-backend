@@ -8,15 +8,15 @@ public interface IItemManager {
 
     ViewItem getItemsById(Long inventoryId);
 
-    ViewItem getItemByVin(String vin);
-
-    List<ViewItem> getItemsByCarSold(String carSold);
-
-    ViewItem createItem(ViewItem Item);
-
-    ViewItem updateItem(Long inventoryId, ViewItem Item);
-
-    ViewItem deleteItem(Long inventoryId);
+//    ViewItem getItemByVin(String vin);
+//
+//    List<ViewItem> getItemsByCarSold(String carSold);
+//
+//    ViewItem createItem(ViewItem Item);
+//
+//    ViewItem updateItem(Long inventoryId, ViewItem Item);
+//
+//    ViewItem deleteItem(Long inventoryId);
 
     /*  Refactored code for SupraMarket project (Legacy PunchandPi) */
 
