@@ -1,42 +1,34 @@
 package com.thesupramarket.backend.controllers;
 
-import java.util.List;
-import java.util.Collections;
 
-
+import com.thesupramarket.backend.domains.Product;
+import com.thesupramarket.backend.service.ShopifyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestParam;
 
-
-import com.thesupramarket.backend.managers.IItemManager;
-import com.thesupramarket.backend.views.ViewItem;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/item")
-public class ItemControllerV1 {
+@RequestMapping("/api/v1")
+public class ProductControllerV1 {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(ItemControllerV1.class);
+    public static final Logger LOGGER = LoggerFactory.getLogger(ProductControllerV1.class);
 
     @Autowired
-    IItemManager itemManager;
-    
+    private ShopifyService shopifyService;
 
-    @RequestMapping(value = "/{inventoryId}", method = RequestMethod.GET)
-    ResponseEntity<ViewItem> getItemsById(@PathVariable Long inventoryId) {
-        LOGGER.info("GET.itemsById for id: {}",inventoryId);
+    @RequestMapping("/products")
+    public String getAllProducts() {
+        Long start = System.currentTimeMillis();
+        LOGGER.info("API getAllProducts START");
 
-            return new ResponseEntity<>(
-                    itemManager.getItemsById(inventoryId), HttpStatus.OK);
-        }
+        return shopifyService.getAllProducts();
+    }
 
 //     @RequestMapping(value = "/", method = RequestMethod.GET)
 //     ResponseEntity<List<ViewItem>> getItemsByCarSold(@RequestParam(name="sold", defaultValue = "false") String carSold) {
