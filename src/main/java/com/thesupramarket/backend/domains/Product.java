@@ -1,32 +1,54 @@
 package com.thesupramarket.backend.domains;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
 public class Product {
 
 	private Long id;
 
 	private String title;
 
+	@JsonProperty("body_html")
 	private String bodyHtml;
 
+	@JsonProperty("product_type")
     private String productType;
 
+	@JsonProperty("created_at")
+//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss-Z")
     private OffsetDateTime createdAt;
 
-    private OffsetDateTime updatedAt;
+	@JsonProperty("updated_at")
+//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss-Z")
+	private OffsetDateTime updatedAt;
 
+	@JsonProperty("published_at")
     private OffsetDateTime publishedAt;
 
     private String status;
 
+	@JsonProperty("variants")
     private List<ProductVariant> productVariantList;
 
-    private List<ProductOption> productOptionList;
+    @JsonProperty("options")
+	private List<ProductOption> productOptionList;
 
+    @JsonProperty("images")
     private List<ProductImage> productImageList;
+
+	public Product() {
+		productVariantList = new ArrayList<>();
+		productOptionList = new ArrayList<>();
+		productImageList = new ArrayList<>();
+	}
 
 	public Long getId() {
 		return id;

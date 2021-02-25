@@ -1,15 +1,18 @@
 package com.thesupramarket.backend.service;
 
+import com.thesupramarket.backend.domains.Product;
+import com.thesupramarket.backend.domains.ProductList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
 import java.util.Base64;
+import java.util.List;
 
 @Service
 public class ShopifyService {
@@ -31,7 +34,7 @@ public class ShopifyService {
     @Value("${shopify.endpoint.products}")
     private String shopifyProductEndpoint;
 
-    public String getAllProducts() {
+    public List<Product> getAllProducts() {
         Long start = System.currentTimeMillis();
         String authStr = shopifyApiKey + ":" + shopifyPassword;
         byte[] authBytes = Base64.getEncoder().encode(authStr.getBytes());
@@ -44,16 +47,18 @@ public class ShopifyService {
         headers.set("Authorization", authentication);
         HttpEntity entity = new HttpEntity(headers);
 
-        ResponseEntity<String> responseEntity = restTemplate.exchange(
+        ResponseEntity<ProductList> responseEntity = restTemplate.exchange(
                 Url,
                 HttpMethod.GET,
                 entity,
-                String.class
+                ProductList.class
         );
 
-        String response = responseEntity.getBody();
+//        String response = responseEntity.getBody();
 
-        LOGGER.info(response.toString());
-        return response;
+        List<Product> products = responseEntity.getBody().getProducts();
+
+        LOGGER.info(products.toString());
+        return products;
     }
 }
