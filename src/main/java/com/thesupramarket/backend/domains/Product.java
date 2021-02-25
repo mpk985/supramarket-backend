@@ -23,11 +23,9 @@ public class Product {
     private String productType;
 
 	@JsonProperty("created_at")
-//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss-Z")
     private OffsetDateTime createdAt;
 
 	@JsonProperty("updated_at")
-//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss-Z")
 	private OffsetDateTime updatedAt;
 
 	@JsonProperty("published_at")
