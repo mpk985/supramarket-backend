@@ -1,7 +1,7 @@
-package com.thesupramarket.backend.controllers;
+package com.thesupramarket.backend.controller;
 
 
-import com.thesupramarket.backend.domains.Product;
+import com.thesupramarket.backend.domain.Product;
 import com.thesupramarket.backend.service.ShopifyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

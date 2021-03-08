@@ -1,22 +1,21 @@
-package com.thesupramarket.backend.domains;
+package com.thesupramarket.backend.view;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductImage {
+public class ProductImageView {
 
     private Long id;
 
-    @JsonProperty("product_id")
     private Long productId;
 
-    @JsonProperty("created_at")
     private OffsetDateTime createdAt;
 
-    @JsonProperty("updated_at")
     private OffsetDateTime updatedAt;
 
     private String alt;
@@ -25,13 +24,11 @@ public class ProductImage {
 
     private Integer height;
 
-    @JsonProperty("src")
     private String imageUrl;
 
-    @JsonProperty("variant_ids")
     private List<Long> variantIdList;
 
-    public ProductImage() {
+    public ProductImageView() {
         variantIdList = new ArrayList<>();
     }
 
@@ -107,18 +104,5 @@ public class ProductImage {
         this.variantIdList = variantIdList;
     }
 
-    @Override
-    public String toString() {
-        return "ProductImage{" +
-                "id=" + id +
-                ", productId=" + productId +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                ", alt='" + alt + '\'' +
-                ", width=" + width +
-                ", height=" + height +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", variantIdList=" + variantIdList +
-                '}';
-    }
+
 }

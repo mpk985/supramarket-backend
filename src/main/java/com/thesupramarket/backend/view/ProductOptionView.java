@@ -1,26 +1,26 @@
-package com.thesupramarket.backend.domains;
+package com.thesupramarket.backend.view;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductOption {
+public class ProductOptionView {
 
     private Long id;
 
     //Relates to the parent product bucket that all variants reside in
-    @JsonProperty("product_id")
     private Long productId;
 
     private String name;
 
     private Integer position;
 
-    @JsonProperty("values")
     private List<String> valuesList;
 
-    public ProductOption() {
+    public ProductOptionView() {
         this.valuesList = new ArrayList<>();
     }
 
@@ -64,14 +64,5 @@ public class ProductOption {
         this.valuesList = valuesList;
     }
 
-    @Override
-    public String toString() {
-        return "ProductOption{" +
-                "id=" + id +
-                ", productId=" + productId +
-                ", name='" + name + '\'' +
-                ", position=" + position +
-                ", valuesList=" + valuesList +
-                '}';
-    }
+
 }

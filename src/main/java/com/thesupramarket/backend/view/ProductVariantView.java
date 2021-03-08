@@ -1,15 +1,15 @@
-package com.thesupramarket.backend.domains;
+package com.thesupramarket.backend.view;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import java.time.OffsetDateTime;
 
-public class ProductVariant {
+public class ProductVariantView {
 
     private Long id;
 
     //This determines the parent Product group that all variants belong to
-    @JsonProperty("product_id")
     private Long productId;
 
     private String title;
@@ -26,24 +26,19 @@ public class ProductVariant {
 
     private String option3;
 
-    @JsonProperty("created_at")
     private OffsetDateTime createdAt;
 
-    @JsonProperty("updated_at")
     private OffsetDateTime updatedAt;
 
     private Boolean taxable;
 
-    @JsonProperty("image_id")
     private Long imageId;
 
-    @JsonProperty("inventory_item_id")
     private String inventoryItemId;
 
-    @JsonProperty("inventory_quantity")
     private String inventoryQuantity;
 
-    public ProductVariant() {
+    public ProductVariantView() {
     }
 
     public Long getId() {

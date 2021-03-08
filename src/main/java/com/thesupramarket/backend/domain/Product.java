@@ -1,34 +1,31 @@
-package com.thesupramarket.backend.domains;
+package com.thesupramarket.backend.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import java.time.OffsetDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Product {
 
 	private Long id;
 
 	private String title;
 
-	@JsonProperty("body_html")
 	private String bodyHtml;
 
-	@JsonProperty("product_type")
     private String productType;
 
-	@JsonProperty("created_at")
     private OffsetDateTime createdAt;
 
-	@JsonProperty("updated_at")
 	private OffsetDateTime updatedAt;
 
-	@JsonProperty("published_at")
     private OffsetDateTime publishedAt;
 
     private String status;

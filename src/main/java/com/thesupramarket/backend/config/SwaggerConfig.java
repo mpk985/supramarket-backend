@@ -1,4 +1,4 @@
-package com.thesupramarket.backend.configs;
+package com.thesupramarket.backend.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
