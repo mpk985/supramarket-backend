@@ -1,8 +1,5 @@
 package com.thesupramarket.backend.view;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
-
 import java.time.OffsetDateTime;
 
 public class ProductVariantView {
@@ -34,9 +31,9 @@ public class ProductVariantView {
 
     private Long imageId;
 
-    private String inventoryItemId;
+    private Long inventoryItemId;
 
-    private String inventoryQuantity;
+    private Integer inventoryQuantity;
 
     public ProductVariantView() {
     }
@@ -145,19 +142,19 @@ public class ProductVariantView {
         this.imageId = imageId;
     }
 
-    public String getInventoryItemId() {
+    public Long getInventoryItemId() {
         return inventoryItemId;
     }
 
-    public void setInventoryItemId(String inventoryItemId) {
+    public void setInventoryItemId(Long inventoryItemId) {
         this.inventoryItemId = inventoryItemId;
     }
 
-    public String getInventoryQuantity() {
+    public Integer getInventoryQuantity() {
         return inventoryQuantity;
     }
 
-    public void setInventoryQuantity(String inventoryQuantity) {
+    public void setInventoryQuantity(Integer inventoryQuantity) {
         this.inventoryQuantity = inventoryQuantity;
     }
 

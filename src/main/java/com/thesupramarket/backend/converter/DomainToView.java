@@ -1,6 +1,8 @@
 package com.thesupramarket.backend.converter;
 
 import com.thesupramarket.backend.domain.*;
+import com.thesupramarket.backend.view.ProductImageView;
+import com.thesupramarket.backend.view.ProductOptionView;
 import com.thesupramarket.backend.view.ProductVariantView;
 import com.thesupramarket.backend.view.ProductView;
 
@@ -14,11 +16,11 @@ public class DomainToView {
         //Convert only the snake_case properties into camelCase properties
                 //camelCase = Required by Angular
 
-    public static List<ProductView> convertToCamelCase(ProductList productList){
-        if(productList.getProducts() == null) return Collections.emptyList();
+    public static List<ProductView> convertToCamelCase(List<Product> productList){
+        if(productList.isEmpty()) return Collections.emptyList();
 
         List<ProductView> list = new ArrayList<>();
-        for(Product product : productList.getProducts()){
+        for(Product product : productList){
             ProductView pv = new ProductView();
             pv.setId(product.getId());
             pv.setTitle(product.getTitle());
@@ -29,6 +31,7 @@ public class DomainToView {
             pv.setPublishedAt(product.getPublishedAt());
             pv.setStatus(product.getStatus());
 
+            //Add the productVariantView to the ProductView, using the ProductVariant domain values
             for(ProductVariant variant : product.getProductVariantList()){
                 ProductVariantView pvv = new ProductVariantView();
                 pvv.setId(variant.getId());
@@ -49,12 +52,34 @@ public class DomainToView {
                 pv.getProductVariantList().add(pvv);
             }
 
+            //Add the productOptionView to the ProductView, using ProductOption domain values
             for(ProductOption option : product.getProductOptionList()){
-
+                ProductOptionView pov = new ProductOptionView();
+                pov.setId(option.getId());
+                pov.setProductId(option.getProductId());
+                pov.setName(option.getName());
+                pov.setPosition(option.getPosition());
+                for(String values : option.getValuesList()){
+                    pov.getValuesList().add(values);
+                }
+                pv.getProductOptionList().add(pov);
             }
 
+            //Add ProductImageView to the ProductView, using domain ProductImage values
             for(ProductImage image: product.getProductImageList()){
-
+                ProductImageView piv = new ProductImageView();
+                piv.setId(image.getId());
+                piv.setProductId(image.getProductId());
+                piv.setCreatedAt(image.getCreatedAt());
+                piv.setUpdatedAt(image.getUpdatedAt());
+                piv.setAlt(image.getAlt());
+                piv.setWidth(image.getWidth());
+                piv.setHeight(image.getHeight());
+                piv.setImageUrl(image.getImageUrl());
+                for(Long id : image.getVariantIdList()){
+                    piv.getVariantIdList().add(id);
+                }
+                pv.getProductImageList().add(piv);
             }
 
             list.add(pv);

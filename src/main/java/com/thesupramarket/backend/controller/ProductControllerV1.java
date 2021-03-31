@@ -3,6 +3,7 @@ package com.thesupramarket.backend.controller;
 
 import com.thesupramarket.backend.domain.Product;
 import com.thesupramarket.backend.service.ShopifyService;
+import com.thesupramarket.backend.view.ProductView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class ProductControllerV1 {
     private ShopifyService shopifyService;
 
     @RequestMapping("/products")
-    public List<Product> getAllProducts() {
+    public List<ProductView> getAllProducts() {
         Long start = System.currentTimeMillis();
         LOGGER.info("API getAllProducts START");
 

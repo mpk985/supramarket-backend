@@ -1,7 +1,9 @@
 package com.thesupramarket.backend.service;
 
+import com.thesupramarket.backend.converter.DomainToView;
 import com.thesupramarket.backend.domain.Product;
 import com.thesupramarket.backend.domain.ProductList;
+import com.thesupramarket.backend.view.ProductView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
+
+import static com.thesupramarket.backend.converter.DomainToView.convertToCamelCase;
 
 @Service
 public class ShopifyService {
@@ -34,7 +38,7 @@ public class ShopifyService {
     @Value("${shopify.endpoint.products}")
     private String shopifyProductEndpoint;
 
-    public List<Product> getAllProducts() {
+    public List<ProductView> getAllProducts() {
         Long start = System.currentTimeMillis();
         String authStr = shopifyApiKey + ":" + shopifyPassword;
         byte[] authBytes = Base64.getEncoder().encode(authStr.getBytes());
@@ -56,10 +60,11 @@ public class ShopifyService {
 
         List<Product> products = responseEntity.getBody().getProducts();
 
-        LOGGER.info(products.toString());
+        LOGGER.debug(products.toString());
         if(products == null){
             products = Collections.emptyList();
+            LOGGER.info("");
         }
-        return products;
+        return convertToCamelCase(products);
     }
 }
