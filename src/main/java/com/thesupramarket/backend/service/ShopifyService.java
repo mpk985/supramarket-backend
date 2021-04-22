@@ -1,7 +1,7 @@
 package com.thesupramarket.backend.service;
 
-import com.thesupramarket.backend.converter.DomainToView;
 import com.thesupramarket.backend.domain.Product;
+import com.thesupramarket.backend.domain.ProductDTO;
 import com.thesupramarket.backend.domain.ProductList;
 import com.thesupramarket.backend.view.ProductView;
 import org.slf4j.Logger;
@@ -16,6 +16,7 @@ import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 
+import static com.thesupramarket.backend.converter.DomainToView.convertProductToView;
 import static com.thesupramarket.backend.converter.DomainToView.convertToCamelCase;
 
 @Service
@@ -36,21 +37,19 @@ public class ShopifyService {
     private String shopifyPassword;
 
     @Value("${shopify.endpoint.products}")
+    private String shopifyAllProductsEndpoint;
+
+    @Value("${shopify.endpoint.product}")
     private String shopifyProductEndpoint;
 
+
+    /*  Query Shopify API for all Twisted Luck products      */
     public List<ProductView> getAllProducts() {
         Long start = System.currentTimeMillis();
-        String authStr = shopifyApiKey + ":" + shopifyPassword;
-        byte[] authBytes = Base64.getEncoder().encode(authStr.getBytes());
-        String authentication = "Basic " + new String(authBytes);
+        String Url = "https://" + shopifyHostname + shopifyAllProductsEndpoint;
+        HttpEntity entity = createShopifyAuth();
 
-        String Url = "https://" + shopifyHostname + shopifyProductEndpoint;
         LOGGER.info("Call to Get All Products from Shopify Store with URL: {}", Url);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", authentication);
-        HttpEntity entity = new HttpEntity(headers);
-
         ResponseEntity<ProductList> responseEntity = restTemplate.exchange(
                 Url,
                 HttpMethod.GET,
@@ -67,4 +66,37 @@ public class ShopifyService {
         }
         return convertToCamelCase(products);
     }
+
+    /*  Query Shopify API for an individual Product by its inventoryId       */
+    public ProductView getProductById(Long id) {
+        Long start = System.currentTimeMillis();
+        String Url = "https://" + shopifyHostname + shopifyProductEndpoint + id + ".json";
+        HttpEntity entity = createShopifyAuth();
+
+        LOGGER.info("Call to Get All Products from Shopify Store with URL: {}", Url);
+        ResponseEntity<ProductDTO> responseEntity = restTemplate.exchange(
+                Url,
+                HttpMethod.GET,
+                entity,
+                ProductDTO.class
+        );
+        
+        ProductView pv = convertProductToView(responseEntity.getBody().getProduct());
+        return pv;
+    }
+
+
+    private HttpEntity createShopifyAuth(){
+        /*  Auth Headers for Shopify */
+        String authStr = shopifyApiKey + ":" + shopifyPassword;
+        byte[] authBytes = Base64.getEncoder().encode(authStr.getBytes());
+        String authentication = "Basic " + new String(authBytes);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", authentication);
+        HttpEntity entity = new HttpEntity(headers);
+
+        return entity;
+    }
+
 }

@@ -7,7 +7,11 @@ import com.thesupramarket.backend.view.ProductView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -23,21 +27,21 @@ public class ProductControllerV1 {
 
     @RequestMapping("/products")
     public List<ProductView> getAllProducts() {
-        Long start = System.currentTimeMillis();
         LOGGER.info("API getAllProducts START");
-
         return shopifyService.getAllProducts();
     }
+
+         @RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
+     ResponseEntity <ProductView> getProductById(@PathVariable Long id) {
+        LOGGER.info("API getProductById START ");
+         return new ResponseEntity<>(shopifyService.getProductById(id), HttpStatus.OK);
+     }
 
 //     @RequestMapping(value = "/", method = RequestMethod.GET)
 //     ResponseEntity<List<ViewItem>> getItemsByCarSold(@RequestParam(name="sold", defaultValue = "false") String carSold) {
 //         return new ResponseEntity<>(itemManager.getItemsByCarSold(carSold), HttpStatus.OK);
 //     }
 //
-//     @RequestMapping(value = "/vin/{vin}", method = RequestMethod.GET)
-//     ResponseEntity <ViewItem> getItemByVin(@PathVariable String vin) {
-//         return new ResponseEntity<>(itemManager.getItemByVin(vin), HttpStatus.OK);
-//     }
 
     // @RequestMapping(value = "/{size}", method = RequestMethod.GET)
     // ResponseEntity<List<ViewItem>> getItemBySize(@PathVariable String size) {
