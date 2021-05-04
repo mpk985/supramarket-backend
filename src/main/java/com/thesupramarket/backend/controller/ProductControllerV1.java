@@ -31,27 +31,18 @@ public class ProductControllerV1 {
         return shopifyService.getAllProducts();
     }
 
-         @RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
+     @RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
      ResponseEntity <ProductView> getProductById(@PathVariable Long id) {
         LOGGER.info("API getProductById START ");
          return new ResponseEntity<>(shopifyService.getProductById(id), HttpStatus.OK);
      }
 
-//     @RequestMapping(value = "/", method = RequestMethod.GET)
-//     ResponseEntity<List<ViewItem>> getItemsByCarSold(@RequestParam(name="sold", defaultValue = "false") String carSold) {
-//         return new ResponseEntity<>(itemManager.getItemsByCarSold(carSold), HttpStatus.OK);
-//     }
-//
-
-    // @RequestMapping(value = "/{size}", method = RequestMethod.GET)
-    // ResponseEntity<List<ViewItem>> getItemBySize(@PathVariable String size) {
-    //     return new ResponseEntity<>(itemManager.getItemsBySize(size), HttpStatus.OK);
-    // }
-
-    // @RequestMapping(value = "/{inventoryRemaining}", method = RequestMethod.GET)
-    // ResponseEntity<List<ViewItem>> getItemByInventoryRemaining(@PathVariable int inventoryRemaining) {
-    //     return new ResponseEntity<>(itemManager.getItemsByInventoryRemaining(inventoryRemaining), HttpStatus.OK);
-    // }
+     @RequestMapping(value = "/random", method = RequestMethod.GET)
+     ResponseEntity<ProductView> getRandom() {
+        LOGGER.info("API getRandom START");
+        //Should call ALL products, then select one at random
+        return new ResponseEntity<>(shopifyService.getRandomProduct(), HttpStatus.OK);
+     }
 
 
 //   @RequestMapping(value = "/", method = RequestMethod.GET)

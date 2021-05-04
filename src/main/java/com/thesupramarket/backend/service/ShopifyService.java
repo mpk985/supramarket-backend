@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import static com.thesupramarket.backend.converter.DomainToView.convertProductToView;
 import static com.thesupramarket.backend.converter.DomainToView.convertToCamelCase;
@@ -64,30 +65,42 @@ public class ShopifyService {
             products = Collections.emptyList();
             LOGGER.info("");
         }
+        LOGGER.info("TTC getAllProducts: {}ms", System.currentTimeMillis() - start);
         return convertToCamelCase(products);
     }
 
     /*  Query Shopify API for an individual Product by its inventoryId       */
     public ProductView getProductById(Long id) {
         Long start = System.currentTimeMillis();
+        LOGGER.info("Call to Get All Products from Shopify Store");
         String Url = "https://" + shopifyHostname + shopifyProductEndpoint + id + ".json";
         HttpEntity entity = createShopifyAuth();
-
-        LOGGER.info("Call to Get All Products from Shopify Store with URL: {}", Url);
         ResponseEntity<ProductDTO> responseEntity = restTemplate.exchange(
                 Url,
                 HttpMethod.GET,
                 entity,
                 ProductDTO.class
         );
-        
+
         ProductView pv = convertProductToView(responseEntity.getBody().getProduct());
+        LOGGER.info("TTC getProductById: {}ms", System.currentTimeMillis() - start);
         return pv;
     }
 
-
+    /*  Randomly select a Product */
+    public ProductView getRandomProduct() {
+        LOGGER.info("Call to Get a Random Product from Shopify Store");
+        ProductView pv = new ProductView();
+        List<ProductView> allProducts= getAllProducts();
+        if(!allProducts.isEmpty() && allProducts != null){
+            int numOfProducts = allProducts.size();
+            pv = allProducts.get(new Random().nextInt(numOfProducts));
+        }
+        return pv;
+    }
+    
+    /*  Auth Headers for Shopify */
     private HttpEntity createShopifyAuth(){
-        /*  Auth Headers for Shopify */
         String authStr = shopifyApiKey + ":" + shopifyPassword;
         byte[] authBytes = Base64.getEncoder().encode(authStr.getBytes());
         String authentication = "Basic " + new String(authBytes);
