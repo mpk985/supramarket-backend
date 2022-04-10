@@ -54,10 +54,8 @@ public class ShopifyService {
     /*  Query Shopify API for all Twisted Luck products      */
     public List<ProductView> getAllProducts() {
         Long start = System.currentTimeMillis();
-        Instant timeDifference = lastProductRefresh.minusMillis(PRODUCT_REFRESH_INTERVAL_IN_MILLIS);
-        boolean mustRefreshProductList = lastProductRefresh.compareTo(timeDifference) > 0 ? true : false;
 
-        if(Objects.isNull(allProducts) || CollectionUtils.isEmpty(allProducts) || mustRefreshProductList) {
+        if(Objects.isNull(allProducts) || CollectionUtils.isEmpty(allProducts) || isItTimeToRefreshProductList()) {
 
             UriComponents url = UriComponentsBuilder.newInstance()
                     .scheme("https").host(shopifyHostname).path(shopifyAllProductsEndpoint).build();
@@ -73,7 +71,7 @@ public class ShopifyService {
 
             List<Product> products = responseEntity.getBody().getProducts();
 
-            LOGGER.info(products.toString());
+            LOGGER.info(products);
             if (products == null) {
                 products = Collections.emptyList();
                 LOGGER.info("");
@@ -91,12 +89,15 @@ public class ShopifyService {
     public ProductView getProductById(Long id) {
         Long start = System.currentTimeMillis();
         ProductView pv = null;
-
         LOGGER.info("Call Shopify Store for Product ID");
-        String Url = "https://" + shopifyHostname + shopifyProductEndpoint + id + ".json";
+
+        String idJson = id + ".json";
+        UriComponents url = UriComponentsBuilder.newInstance()
+                .scheme("https").host(shopifyHostname).path(shopifyAllProductsEndpoint).path(idJson).build();
+
         HttpEntity entity = createShopifyAuth();
         ResponseEntity<ProductDTO> responseEntity = restTemplate.exchange(
-                Url,
+                url.toUriString(),
                 HttpMethod.GET,
                 entity,
                 ProductDTO.class
@@ -109,10 +110,8 @@ public class ShopifyService {
 
     /*  Randomly select a Product */
     public ProductView getRandomProduct() {
-        Instant timeDifference = lastProductRefresh.minusMillis(PRODUCT_REFRESH_INTERVAL_IN_MILLIS);
-        boolean mustRefreshProductList = lastProductRefresh.compareTo(timeDifference) > 0 ? true : false;
 
-        if (Objects.isNull(allProducts) || CollectionUtils.isEmpty(allProducts) || mustRefreshProductList) {
+        if (Objects.isNull(allProducts) || CollectionUtils.isEmpty(allProducts) || isItTimeToRefreshProductList()) {
 
             LOGGER.info("Call to Get a Random Product from Shopify Store");
             ProductView pv = new ProductView();
@@ -138,6 +137,12 @@ public class ShopifyService {
         HttpEntity entity = new HttpEntity(headers);
 
         return entity;
+    }
+
+    /*  Check if time to refresh product list  */
+    private boolean isItTimeToRefreshProductList(){
+        Instant timeDifference = Instant.now().minusMillis(PRODUCT_REFRESH_INTERVAL_IN_MILLIS);
+        return lastProductRefresh.compareTo(timeDifference) >= 0;
     }
 
 }
