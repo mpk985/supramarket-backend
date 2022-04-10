@@ -1,11 +1,10 @@
 package com.thesupramarket.backend.controller;
 
 
-import com.thesupramarket.backend.domain.Product;
 import com.thesupramarket.backend.service.ShopifyService;
 import com.thesupramarket.backend.view.ProductView;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,7 @@ import java.util.List;
 @RequestMapping("/api/v1")
 public class ProductControllerV1 {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(ProductControllerV1.class);
+    public static final Logger LOGGER = LogManager.getLogger(ProductControllerV1.class);
 
     @Autowired
     private ShopifyService shopifyService;
