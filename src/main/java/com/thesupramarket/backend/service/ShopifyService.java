@@ -48,7 +48,7 @@ public class ShopifyService {
 
     private Instant lastProductRefresh = Instant.now();
 
-    private final long PRODUCT_REFRESH_INTERVAL_IN_MILLIS = 5000;
+    private final long PRODUCT_REFRESH_INTERVAL_IN_MILLIS = 300_000;
 
 
     /*  Query Shopify API for all Twisted Luck products      */
@@ -76,12 +76,14 @@ public class ShopifyService {
                 products = Collections.emptyList();
                 LOGGER.info("");
             }
-            LOGGER.info("TTC getAllProducts: {}ms", System.currentTimeMillis() - start);
+            lastProductRefresh = Instant.now();
+            LOGGER.info("Retrieved List of All Products: {}ms", System.currentTimeMillis() - start);
+            LOGGER.info("Product List Refresh Time: {}", lastProductRefresh);
 
             allProducts = convertToCamelCase(products);
             return allProducts;
         }
-        LOGGER.info("Products already populated.  TTC: {}ms", System.currentTimeMillis() - start);
+        LOGGER.info("Products already populated. No refresh needed.");
         return allProducts;
     }
 
@@ -93,9 +95,10 @@ public class ShopifyService {
 
         String idJson = id + ".json";
         UriComponents url = UriComponentsBuilder.newInstance()
-                .scheme("https").host(shopifyHostname).path(shopifyAllProductsEndpoint).path(idJson).build();
+                .scheme("https").host(shopifyHostname).path(shopifyProductEndpoint).path(idJson).build();
 
         HttpEntity entity = createShopifyAuth();
+        LOGGER.info("URL for Product ID: {}", url.toUriString());
         ResponseEntity<ProductDTO> responseEntity = restTemplate.exchange(
                 url.toUriString(),
                 HttpMethod.GET,
@@ -111,19 +114,15 @@ public class ShopifyService {
     /*  Randomly select a Product */
     public ProductView getRandomProduct() {
 
-        if (Objects.isNull(allProducts) || CollectionUtils.isEmpty(allProducts) || isItTimeToRefreshProductList()) {
-
-            LOGGER.info("Call to Get a Random Product from Shopify Store");
-            ProductView pv = new ProductView();
-            List<ProductView> allProducts = getAllProducts();
-            if (!allProducts.isEmpty() && allProducts != null) {
-                int numOfProducts = allProducts.size();
-                pv = allProducts.get(new Random().nextInt(numOfProducts));
-            }
-            return pv;
+        LOGGER.info("Call to Get a Random Product from Shopify Store");
+        ProductView pv = new ProductView();
+        List<ProductView> allProducts = getAllProducts();
+        if (!allProducts.isEmpty() && allProducts != null) {
+            int numOfProducts = allProducts.size();
+            pv = allProducts.get(new Random().nextInt(numOfProducts));
         }
-        LOGGER.info("Products already available to randomize.");
-        return allProducts.get(new Random().nextInt(allProducts.size()));
+
+        return pv;
     }
     
     /*  Auth Headers for Shopify */
@@ -141,8 +140,11 @@ public class ShopifyService {
 
     /*  Check if time to refresh product list  */
     private boolean isItTimeToRefreshProductList(){
-        Instant timeDifference = Instant.now().minusMillis(PRODUCT_REFRESH_INTERVAL_IN_MILLIS);
-        return lastProductRefresh.compareTo(timeDifference) >= 0;
+        Instant newTime = Instant.now().minusMillis(PRODUCT_REFRESH_INTERVAL_IN_MILLIS);
+        int result = lastProductRefresh.compareTo(newTime);
+        LOGGER.debug("Last Refresh: {} ::: New Time: {} --- result: {}", lastProductRefresh, newTime,result);
+
+        return result <= 0;
     }
 
 }
