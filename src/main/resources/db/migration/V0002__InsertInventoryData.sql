@@ -1,2 +1,0 @@
-insert into art_inventory (year, title, description, price, sold, product_img)values
-('2020', 'Twisted Luck Hat', 'Twisted Luck $2 Bill Embroided Hat', 100.00, 0, 'html/assets/media/supra/5040/front.jpeg');

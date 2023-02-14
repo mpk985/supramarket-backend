@@ -1,4 +1,4 @@
-Read Me File for SupraMarket
+**Read Me File for TWSTDLUCK backend application**
 
 http://localhost:8080/swagger-ui.html#
 

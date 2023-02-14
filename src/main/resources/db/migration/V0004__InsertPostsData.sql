@@ -1,1 +1,0 @@
-insert into posts (title, body, created_on, post_img) values ('title', 'body', sysdate, 'src/html');
