@@ -25,13 +25,14 @@
 
     </Appenders>
     <Loggers>
-        <Logger name="com.twstdluck.log4j" level="debug" additivity="false">
+        <Logger name="com.twstdluck.log4j" level="all" additivity="false">
             <AppenderRef ref="ConsoleAppender" />
+            <AppenderRef ref="Fileppender" />
         </Logger>
 
         <Root level="info">
             <AppenderRef ref="ConsoleAppender" />
-            <!--<AppenderRef ref="FileAppender"/> -->
+            <AppenderRef ref="FileAppender"/>
         </Root>
     </Loggers>
 </Configuration>

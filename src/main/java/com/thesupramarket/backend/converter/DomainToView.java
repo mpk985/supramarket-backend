@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static com.thesupramarket.backend.constants.Constants.BASE_SHOPIFY_STORE_URL;
+import static com.thesupramarket.backend.constants.Constants.PRODUCTS_URI;
+
 public class DomainToView {
 
     //Convert a List of Domain object into a consumable for the front end
@@ -97,6 +100,8 @@ public class DomainToView {
             pv.setUpdatedAt(product.getUpdatedAt());
             pv.setPublishedAt(product.getPublishedAt());
             pv.setStatus(product.getStatus());
+            //Define the Product URL to the shopify store
+            pv.setProductUrl(BASE_SHOPIFY_STORE_URL + PRODUCTS_URI + product.getTitle());
 
             //Add the productVariantView to the ProductView, using the ProductVariant domain values
             for(ProductVariant variant : product.getProductVariantList()){
