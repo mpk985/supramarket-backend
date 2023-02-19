@@ -32,6 +32,8 @@ public class ProductView {
 
     private List<ProductImageView> productImageList;
 
+    private String productUrl;
+
     public ProductView() {
         productVariantList = new ArrayList<ProductVariantView>();
         productOptionList = new ArrayList<ProductOptionView>();
@@ -126,5 +128,29 @@ public class ProductView {
         this.productImageList = productImageList;
     }
 
+    public String getProductUrl() {
+        return productUrl;
+    }
 
+    public void setProductUrl(String productUrl) {
+        this.productUrl = productUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductView{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", bodyHtml='" + bodyHtml + '\'' +
+                ", productType='" + productType + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", publishedAt=" + publishedAt +
+                ", status='" + status + '\'' +
+                ", productVariantList=" + productVariantList +
+                ", productOptionList=" + productOptionList +
+                ", productImageList=" + productImageList +
+                ", productUrl='" + productUrl + '\'' +
+                '}';
+    }
 }

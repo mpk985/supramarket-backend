@@ -71,19 +71,19 @@ public class ShopifyService {
 
             List<Product> products = responseEntity.getBody().getProducts();
 
-            LOGGER.info(products);
+            LOGGER.debug(products);
             if (products == null) {
                 products = Collections.emptyList();
-                LOGGER.info("");
+                LOGGER.error("Product list is empty - getAllProducts");
             }
             lastProductRefresh = Instant.now();
-            LOGGER.info("Retrieved List of All Products: {}ms", System.currentTimeMillis() - start);
-            LOGGER.info("Product List Refresh Time: {}", lastProductRefresh);
+            LOGGER.debug("Retrieved List of All Products: {}ms", System.currentTimeMillis() - start);
+            LOGGER.debug("Product List Refresh Time: {}", lastProductRefresh);
 
             allProducts = convertToCamelCase(products);
             return allProducts;
         }
-        LOGGER.info("Products already populated. No refresh needed.");
+        LOGGER.debug("Products already populated. No refresh needed.");
         return allProducts;
     }
 
@@ -91,14 +91,13 @@ public class ShopifyService {
     public ProductView getProductById(Long id) {
         Long start = System.currentTimeMillis();
         ProductView pv = null;
-        LOGGER.info("Call Shopify Store for Product ID");
+        LOGGER.debug("Call Shopify Store for Product ID");
 
         String idJson = id + ".json";
         UriComponents url = UriComponentsBuilder.newInstance()
                 .scheme("https").host(shopifyHostname).path(shopifyProductEndpoint).path(idJson).build();
 
         HttpEntity entity = createShopifyAuth();
-        LOGGER.info("URL for Product ID: {}", url.toUriString());
         ResponseEntity<ProductDTO> responseEntity = restTemplate.exchange(
                 url.toUriString(),
                 HttpMethod.GET,
@@ -107,14 +106,14 @@ public class ShopifyService {
         );
 
         pv = convertProductToView(responseEntity.getBody().getProduct());
-        LOGGER.info("TTC getProductById: {}ms", System.currentTimeMillis() - start);
+        LOGGER.debug("TTC getProductById: {}ms", System.currentTimeMillis() - start);
         return pv;
     }
 
     /*  Randomly select a Product */
     public ProductView getRandomProduct() {
 
-        LOGGER.info("Call to Get a Random Product from Shopify Store");
+        LOGGER.debug("Call to Get a Random Product from Shopify Store");
         ProductView pv = new ProductView();
         List<ProductView> allProducts = getAllProducts();
         if (!allProducts.isEmpty() && allProducts != null) {
