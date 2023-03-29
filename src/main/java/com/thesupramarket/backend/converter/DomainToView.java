@@ -6,9 +6,7 @@ import com.thesupramarket.backend.view.ProductOptionView;
 import com.thesupramarket.backend.view.ProductVariantView;
 import com.thesupramarket.backend.view.ProductView;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static com.thesupramarket.backend.constants.Constants.BASE_SHOPIFY_STORE_URL;
 import static com.thesupramarket.backend.constants.Constants.PRODUCTS_URI;
@@ -101,7 +99,7 @@ public class DomainToView {
             pv.setPublishedAt(product.getPublishedAt());
             pv.setStatus(product.getStatus());
             //Define the Product URL to the shopify store
-            pv.setProductUrl(BASE_SHOPIFY_STORE_URL + PRODUCTS_URI + product.getTitle());
+            generateProductUrl(pv);
 
             //Add the productVariantView to the ProductView, using the ProductVariant domain values
             for(ProductVariant variant : product.getProductVariantList()){
@@ -155,5 +153,27 @@ public class DomainToView {
             }
 
         return pv;
+    }
+
+    public static void generateProductUrl(ProductView pv) {
+        if(Objects.nonNull(pv)) {
+            String title = pv.getTitle();
+            //If contains punctuation, remove
+            title = title.replaceAll("\\p{Punct}", "");
+            //If contains white space, replace with dashes
+            title = title.replaceAll("\\s", "-");
+
+            //Verify it only contains 3 elements of words
+            String[] strArray = title.split("-");
+            if(strArray.length > 3){
+                StringJoiner sj = new StringJoiner("-");
+                for(int i=0; i < 3; i++) {
+                    sj.add(strArray[i]);
+                }
+                title = sj.toString();
+            }
+
+            pv.setProductUrl(BASE_SHOPIFY_STORE_URL + PRODUCTS_URI + title);
+        }
     }
 }

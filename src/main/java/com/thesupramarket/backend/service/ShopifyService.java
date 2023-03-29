@@ -18,8 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.time.Instant;
 import java.util.*;
 
-import static com.thesupramarket.backend.converter.DomainToView.convertProductToView;
-import static com.thesupramarket.backend.converter.DomainToView.convertToCamelCase;
+import static com.thesupramarket.backend.converter.DomainToView.*;
 
 @Service
 public class ShopifyService {
@@ -119,6 +118,8 @@ public class ShopifyService {
         if (!allProducts.isEmpty() && allProducts != null) {
             int numOfProducts = allProducts.size();
             pv = allProducts.get(new Random().nextInt(numOfProducts));
+            /*  Update product URL */
+            generateProductUrl(pv);
         }
 
         return pv;
